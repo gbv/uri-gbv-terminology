@@ -1,0 +1,16 @@
+{
+    "name": "gbv/uri-gbv-terminology",
+    "description": "Linked Open Data Endpoint uri.gbv.de/terminology",
+    "type": "project",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Jakob Voss",
+            "email": "voss@gbv.de"
+        }
+    ],
+    "require": {
+        "easyrdf/easyrdf": "0.9.x",
+        "gbv/jskos-rdf": "^0.1.1"
+    }
+}

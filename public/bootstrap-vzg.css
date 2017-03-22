@@ -1,0 +1,42 @@
+.navbar-inverse {
+  background-color: #577fbb;
+  border-color: #fff;
+}
+.navbar-inverse a {
+  font-weight: bold;
+}
+.navbar-inverse .navbar-nav>li>a,
+.navbar-inverse .navbar-brand {
+  color: #fff;
+}
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>li>a:hover {
+  background-color: #577fbb;
+  color: #003399;
+}
+.navbar-inverse .navbar-nav>li {
+  border-right: 1px solid #8BAFDF;
+}
+body {
+  padding-top: 50px;
+}
+h2, h3, h4, h5 {
+  color: #355FB8
+}
+footer {
+  border-top: 12px solid #6791c9;
+}
+.fa-twitter { color: #55acee }
+.fa-github { color: #333333 }
+
+.jumbotron {
+  padding-left: 35%;
+}
+
+.jumbotron.danteImage {
+  background-image: url(/images/dante.png);
+  background-repeat: no-repeat;
+  background-size: 35% auto;
+  background-position: left bottom;
+}
