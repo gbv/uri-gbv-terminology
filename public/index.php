@@ -27,6 +27,7 @@ function label($item, $language) {
 
 // Anfragepfad parsen
 $PATH = $_SERVER['PATH_INFO'] ?? '/';
+if (!$PATH) $PATH = '/';
 $URI = "http://uri.gbv.de/terminology$PATH";
 
 // Ermittelt $SELF and $BASE als relative Pfade

@@ -1,8 +1,6 @@
 DirectoryIndex index.php
 AcceptPathInfo On
 
-ErrorDocument 500 error.html
-
 RewriteEngine On
 RewriteRule ^\.htaccess$ - [F]
 RewriteCond %{REQUEST_FILENAME} !-f
