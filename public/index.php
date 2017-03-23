@@ -40,7 +40,6 @@ $BASE = './' . str_repeat('../', count($parts)-1);
 $KOS = array_shift($parts);
 $ID =  implode('/', $parts);
 
-
 // Startseite
 if ($PATH == '/') {
     unset($URI);

@@ -1,26 +1,14 @@
 <table class="table">
-<tr>
-<td>notation</td>
-<td><?=
-    implode(', ', array_map(
-        function ($n) { return '<code>'.htmlspecialchars($n).'</code>'; },
-        $JSKOS->notation
-    ));
-?></td>  
-</tr>
-<?php if (count($JSKOS->broader)) {
-    echo "<tr><td>broader</td><td>";
-    echo implode('<br>', array_map(
-        function ($x) { 
-            $uri = $x->uri;
-            $href = $uri;
-            return '<a href="'.htmlspecialchars($href).'">'
-                   .htmlspecialchars($uri).'</a>'; 
-        },
-        $JSKOS->broader
-    ));
-    echo "</td></tr>";
-}
+<?php 
+
+include 'item.php';
+include 'relations.php';
+
+row('Anfang', $JSKOS->startDate);
+row('Ende', $JSKOS->endDate);
+row('Datum', $JSKOS->date);
+row('Ort', $JSKOS->location ? json_encode($JSOS->location) : NULL);
+
 ?>
 </table>
 <?php

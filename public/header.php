@@ -12,8 +12,13 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="<?= $BASE ?? './' ?>../">uri.gbv.de/</a>
+          <a class="navbar-brand hidden-xs" href="<?= $BASE ?? './' ?>../">uri.gbv.de</a>
           <a class="navbar-brand" href="<?= $BASE ?? './' ?>">terminology</a>
+          <?php if ($KOS ?? '') { ?>
+          <a class="navbar-brand" href="<?= "$BASE$KOS/" ?>"><?= $KOS ?></a>
+          <?php if ($ID ?? '') { ?>
+          <a class="navbar-brand" href="<?= $SELF ?? '' ?>"><?= $ID ?></a>
+          <?php } } ?>
         </div>
       </div>
     </nav>
