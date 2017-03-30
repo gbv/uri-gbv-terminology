@@ -64,6 +64,13 @@ else {
         $APIURL = "http://api.dante.gbv.de/voc/$KOS";
         $json = file_get_contents($APIURL); 
         $JSKOS = new JSKOS\ConceptScheme($json);
+
+        if ($JSKOS->uri and !$JSKOS->topConcept) {
+            // TODO: get selected fields only to speed up query
+            $url = "http://api.dante.gbv.de/voc/$KOS/top";
+            $json = file_get_contents($url); 
+            $JSKOS->topConcepts = json_decode($json);
+        }
     } else {
         $TYPE = 'Concept';
         $APIURL = 'http://api.dante.gbv.de/data?uri='.urlencode($URI);

@@ -1,6 +1,8 @@
 <table class="table">
 <?php
 
+include_once 'utils.php';
+
 include 'item.php';
 
 row('Lizenz',
@@ -16,6 +18,9 @@ row('Lizenz',
 row('Umfang', $JSKOS->extent);
 row('Sprachen', implode(', ', $JSKOS->languages));
 
+row('Oberste Begriffe', implode('<br>',
+    array_map('uri_link', $JSKOS->topConcepts)
+));
 ?>
 </table>
 <?php
