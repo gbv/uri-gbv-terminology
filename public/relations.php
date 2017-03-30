@@ -1,6 +1,9 @@
 <?php
 
-# TODO: inScheme, topConceptOf
+# TODO: topConceptOf
+
+$kos = array_map('uri_link', $JSKOS->inScheme);
+row('KOS', implode('<br>', $kos));
 
 $relations = [
     'ancestors' => 'Übergeordnet',
@@ -14,18 +17,6 @@ $relations = [
 $PREFIX = 'http://uri.gbv.de/terminology';
 
 foreach ($relations as $field => $label) {
-    $set = $JSKOS->$field;
-    row($label, implode('<br>', array_map(
-        function ($x) { 
-            global $BASE, $PREFIX;
-            $uri = $x->uri;
-            $href = $uri;
-            if (substr($uri, 0, strlen($PREFIX)) === $PREFIX) {
-                $href = $BASE . substr($uri, strlen($PREFIX)+1);
-            }
-            return '<a href="'.htmlspecialchars($href).'">'
-                   .htmlspecialchars($uri).'</a>'; 
-        },
-        array_reverse($set)
-    )));
+    $set = array_reverse($JSKOS->$field);
+    row($label, implode('<br>', array_map('uri_link', $set)));
 }

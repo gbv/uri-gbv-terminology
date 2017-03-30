@@ -18,3 +18,15 @@ function formatted($format) {
     if (in_array(NULL, $args, TRUE)) return;
     return vsprintf($format, $args);
 }
+
+// link to an item's uri
+function uri_link($item) {
+    global $BASE, $PREFIX;
+    $uri = $item->uri;
+    $href = $uri;
+    if (substr($uri, 0, strlen($PREFIX)) === $PREFIX) {
+        $href = $BASE . substr($uri, strlen($PREFIX)+1);
+    }
+    return '<a href="'.htmlspecialchars($href).'">'
+           .htmlspecialchars($uri).'</a>'; 
+}

@@ -2,12 +2,25 @@
 
 include_once 'utils.php';
 
-row('Notation/ID',  
+row('URI', uri_link($JSKOS));
+
+row('Notation',  
     implode(', ', array_map(
         function ($n) { return '<code>'.htmlspecialchars($n).'</code>'; },
         $JSKOS->notation)
 ));
 
+row('Identifier',
+    implode('<br>',array_map(
+        function ($id) {
+            if (preg_match('/^https?:/', $id)) {
+                $id = uri_link((object)['uri'=>$id]);
+            }
+            return "<code>$id</code>";
+        },
+        $JSKOS->identifier
+    )
+));
 $labelTypes = [
     'altLabel' => 'Label',
     'hiddenLabel' => 'Suchbegriffe',
@@ -34,5 +47,6 @@ foreach ($labelTypes as $type => $name) {
 
 row('URL', formatted('<a href="%s">%s</a>', $JSKOS->url, $JSKOS->url));
 
+# TODO: uri, type
 # TODO: subject, subjectOf, depiction
 # TODO: created, issued, modified, creator, contributor, publisher, partOf
