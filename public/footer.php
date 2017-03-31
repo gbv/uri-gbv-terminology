@@ -10,12 +10,15 @@
           <?php if ($APIURL ?? '') {
             echo "&nbsp;<a href='$APIURL'>jskos</a>";
 # TODO: use this script as proxy instead? 
-# TODO: add RDF output
           } ?>
-          <?php if ($SELF ?? 0) { ?>
-          &nbsp;
-          <a href="<?= $SELF ?>">html</a>
-          <?php } ?>
+          <?php if ($SELF ?? 0) { 
+			echo '&nbsp;';
+			echo "<a href='$SELF'>html</a>";
+			foreach ($RDF_FORMATS as $format) {
+				echo '&nbsp;';
+          		echo "<a href='$SELF?format=$format'>$format</a>";
+			}
+         } ?>
         </div>
         <?php } ?>
       </div>

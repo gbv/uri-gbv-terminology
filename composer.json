@@ -11,6 +11,8 @@
     ],
     "require": {
         "easyrdf/easyrdf": "0.9.x",
-        "gbv/jskos-rdf": "^0.1.1"
+        "gbv/jskos-rdf": "^0.1.1",
+        "ml/json-ld": "1.*",
+        "willdurand/negotiation": "^2.2"
     }
 }

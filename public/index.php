@@ -65,7 +65,7 @@ else {
         $json = file_get_contents($APIURL); 
         $JSKOS = new JSKOS\ConceptScheme($json);
 
-        if ($JSKOS->uri and !$JSKOS->topConcept) {
+        if ($JSKOS->uri and !($JSKOS->topConcept ?? 0)) {
             // TODO: get selected fields only to speed up query
             $url = "http://api.dante.gbv.de/voc/$KOS/top";
             $json = file_get_contents($url); 
@@ -81,8 +81,6 @@ else {
         }
     }
     
-    # TODO: get format
-
     if (!$JSKOS) {
         $TITLE = 'Nicht gefunden';
         $MAIN = '404.php';
@@ -93,6 +91,41 @@ else {
         }
         $MAIN = strtolower("$TYPE.php");
     }
+}
+
+
+require 'rdf.php';
+
+$RDF_FORMATS = array_intersect(['turtle','ntriples','rdfxml','png','svg'],\EasyRdf_Format::getNames());
+$FORMAT = $_GET['format'] ?? '';
+
+use \Negotiation\Negotiator;
+
+// if there was no proposed format, negotiate a suitable format
+if ($FORMAT != 'html' and !in_array($FORMAT, $RDF_FORMATS)) {
+	$accept = $_SERVER['HTTP_ACCEPT'] ?? 'text/turtle';
+	$choices = ['text/html', 'application/xhtml+xml'];
+	$choices[] = 'text/turtle';
+	$choices[] = 'application/n-triples';
+	$choices[] = 'application/rdf+xml';
+	
+	header('Vary: Accept'); // inform caches that a decision was made based on Accept header
+	$negotiator = new Negotiator();
+	$format = $negotiator->getBest($accept, $choices);
+	if ($format !== null) {
+	 	$format = $format->getValue();
+		$format = EasyRdf_Format::getFormat($format);
+		if ($format and in_array($format->getName(),$RDF_FORMATS)) {
+			$FORMAT = $format->getName();
+		}
+	}
+}
+
+if ($JSKOS && in_array($FORMAT, $RDF_FORMATS)) {
+	$mimeType = EasyRdf_Format::getFormat($FORMAT)->getDefaultMimeType();
+	header("Content-Type: $mimeType");
+    print jskos2rdf($JSKOS, $FORMAT);
+    exit;
 }
 
 include 'header.php';
