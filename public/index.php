@@ -94,39 +94,25 @@ else {
 }
 
 
+// serialize as RDF if required
+
 require 'rdf.php';
 
-$RDF_FORMATS = array_intersect(['turtle','ntriples','rdfxml','png','svg'],\EasyRdf_Format::getNames());
-$FORMAT = $_GET['format'] ?? '';
+use GBV\RDF\Negotiator;
 
-use \Negotiation\Negotiator;
+$accept = $_SERVER['HTTP_ACCEPT'] ?? 'text/html';
+$negotiator = new Negotiator();
+$format = $negotiator->negotiate($_GET['format'] ?? '', $accept);
 
-// if there was no proposed format, negotiate a suitable format
-if ($FORMAT != 'html' and !in_array($FORMAT, $RDF_FORMATS)) {
-	$accept = $_SERVER['HTTP_ACCEPT'] ?? 'text/turtle';
-	$choices = ['text/html', 'application/xhtml+xml'];
-	$choices[] = 'text/turtle';
-	$choices[] = 'application/n-triples';
-	$choices[] = 'application/rdf+xml';
-	
-	header('Vary: Accept'); // inform caches that a decision was made based on Accept header
-	$negotiator = new Negotiator();
-	$format = $negotiator->getBest($accept, $choices);
-	if ($format !== null) {
-	 	$format = $format->getValue();
-		$format = EasyRdf_Format::getFormat($format);
-		if ($format and in_array($format->getName(),$RDF_FORMATS)) {
-			$FORMAT = $format->getName();
-		}
-	}
-}
-
-if ($JSKOS && in_array($FORMAT, $RDF_FORMATS)) {
-	$mimeType = EasyRdf_Format::getFormat($FORMAT)->getDefaultMimeType();
-	header("Content-Type: $mimeType");
-    print jskos2rdf($JSKOS, $FORMAT);
+if ($JSKOS && $format != 'html') {
+    header("Content-Type: ".$negotiator->mimeType($format));
+    print jskos2rdf($JSKOS, $format); # TODO: base $URI/$KOS
     exit;
 }
+
+// show HTML otherwise
+
+$FORMATS = $negotiator->formats;
 
 include 'header.php';
 include $MAIN;

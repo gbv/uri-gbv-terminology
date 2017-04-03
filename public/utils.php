@@ -30,3 +30,17 @@ function uri_link($item) {
     return '<a href="'.htmlspecialchars($href).'">'
            .htmlspecialchars($uri).'</a>'; 
 }
+
+// link to an item's uri
+function uri_link_with_label($item) {
+    global $LANGUAGE;
+
+    $html = uri_link($item);
+
+    if (isset($item->prefLabel->{$LANGUAGE})) {
+        return $html . " " . htmlspecialchars($item->prefLabel->{$LANGUAGE});
+    } # TODO: other languages?
+
+    return $html;
+}
+

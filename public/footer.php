@@ -7,16 +7,12 @@
         <?php if ($URI ?? 0) { ?>
         <div class="row">
           <a href="<?= htmlspecialchars($URI) ?>"><?= htmlspecialchars($URI) ?></a>
-          <?php if ($APIURL ?? '') {
-            echo "&nbsp;<a href='$APIURL'>jskos</a>";
-# TODO: use this script as proxy instead? 
-          } ?>
           <?php if ($SELF ?? 0) { 
-			echo '&nbsp;';
-			echo "<a href='$SELF'>html</a>";
-			foreach ($RDF_FORMATS as $format) {
+			foreach ($FORMATS as $format) {
 				echo '&nbsp;';
-          		echo "<a href='$SELF?format=$format'>$format</a>";
+                echo "<a href='$SELF";
+                if ($format != 'html') echo "?format=$format";
+                echo "'>$format</a>";
 			}
          } ?>
         </div>

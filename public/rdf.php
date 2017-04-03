@@ -4,8 +4,8 @@
  * Utilities to handle RDF.
  */
 
-use \ML\JsonLD\JsonLD;
-use \ML\JsonLD\NQuads;
+use ML\JsonLD\JsonLD;
+use ML\JsonLD\NQuads;
 
 function jskos2rdf($jskos, $format) {
 
@@ -15,6 +15,12 @@ function jskos2rdf($jskos, $format) {
 			unset($c->{'@context'});
 		}
 	}
+
+    if ($format == 'jsonld') {
+        return $jskos->json();
+    } elseif ($format == 'rdfjson') {
+        $format = 'json';
+    }
 
 	# $context = json_decode(file_get_contents('jskos-context.json'));
 	$context = 'jskos-context.json';
