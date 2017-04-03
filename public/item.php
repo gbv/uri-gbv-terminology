@@ -4,36 +4,33 @@ include_once 'utils.php';
 
 row('URI', uri_link($JSKOS));
 
-row('Notation',  
-    implode(', ', array_map(
-        function ($n) { return '<code>'.htmlspecialchars($n).'</code>'; },
-        $JSKOS->notation)
-));
+row_list('Notation', $JSKOS, 'notation',
+    function ($n) { return '<code>'.htmlspecialchars($n).'</code>'; }
+);
 
-row('Identifier',
-    implode('<br>',array_map(
-        function ($id) {
-            if (preg_match('/^https?:/', $id)) {
-                $id = uri_link((object)['uri'=>$id]);
-            }
-            return "<code>$id</code>";
-        },
-        $JSKOS->identifier
-    )
-));
+row_list('Identifier', $JSKOS, 'identifier',
+    function ($id) {
+        if (preg_match('/^https?:/', $id)) {
+            $id = uri_link((object)['uri'=>$id]);
+        }
+        return "<code>$id</code>";
+    }
+);
+
 $labelTypes = [
-    'altLabel' => 'Label',
-    'hiddenLabel' => 'Suchbegriffe',
-    'scopeNote' => 'Hinweis',
-    'definition' => 'Definition',
-    'example' => 'Beispiel',
+    'altLabel'      => 'Label',
+    'hiddenLabel'   => 'Suchbegriffe',
+    'scopeNote'     => 'Hinweis',
+    'definition'    => 'Definition',
+    'example'       => 'Beispiel',
     'editorialNote' => 'Berarbeitungshinweis',
-    'changeNote' => 'Änderungshinweis'
+    'changeNote'    => 'Änderungshinweis'
 ];
 
 foreach ($labelTypes as $type => $name) {
-    $labels = [];
+    if (!isset($JSKOS->$type)) continue;
 
+    $labels = [];
     foreach ($JSKOS->$type as $lang => $list) {
         foreach ($list as $s) {
             $s = htmlspecialchars($s);
@@ -47,6 +44,6 @@ foreach ($labelTypes as $type => $name) {
 
 row('URL', formatted('<a href="%s">%s</a>', $JSKOS->url, $JSKOS->url));
 
-# TODO: uri, type
+# TODO: type
 # TODO: subject, subjectOf, depiction
 # TODO: created, issued, modified, creator, contributor, publisher, partOf

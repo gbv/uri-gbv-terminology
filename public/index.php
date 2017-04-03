@@ -112,6 +112,7 @@ if ($JSKOS && $format != 'html') {
 
 // show HTML otherwise
 
+$PREFIX = 'http://uri.gbv.de/terminology';
 $FORMATS = $negotiator->formats;
 
 include 'header.php';

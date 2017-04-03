@@ -11,6 +11,12 @@ function row($label, $value) {
   </tr>
 <?php }
 
+function row_list($label, $jskos, $field, $callback) {
+    if (isset($jskos->$field)) {
+        row($label, implode('<br>', array_map($callback, $jskos->$field)));
+    }
+}
+
 // like sprintf but returns NULL if any argument is NULL
 function formatted($format) {
     $args = func_get_args();
