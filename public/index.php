@@ -81,15 +81,16 @@ else {
         }
     }
     
-    if (!$JSKOS) {
-        $TITLE = 'Nicht gefunden';
-        $MAIN = '404.php';
-    } else {
-        $TITLE = label((array)$JSKOS->prefLabel, $LANGUAGE);
+    if (isset($JSKOS)) {
+       $TITLE = label($JSKOS->prefLabel, $LANGUAGE);
         if ($TYPE == 'Concept' and count($JSKOS->notation)) {
             $TITLE = $JSKOS->notation[0] . " $TITLE";
         }
         $MAIN = strtolower("$TYPE.php");
+    } else {
+        $TITLE = 'Nicht gefunden';
+        $MAIN = '404.php';
+        $KOS = '';
     }
 }
 
@@ -104,7 +105,7 @@ $accept = $_SERVER['HTTP_ACCEPT'] ?? 'text/html';
 $negotiator = new Negotiator();
 $format = $negotiator->negotiate($_GET['format'] ?? '', $accept);
 
-if ($JSKOS && $format != 'html') {
+if (isset($JSKOS) && $format != 'html') {
     header("Content-Type: ".$negotiator->mimeType($format));
     print jskos2rdf($JSKOS, $format); # TODO: base $URI/$KOS
     exit;

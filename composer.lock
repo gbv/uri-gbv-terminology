@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a849898bf2cf2de7ff8516b5a2b11215",
+    "content-hash": "81f9d6aadb144d49bbfa5bedfaf1ee91",
     "packages": [
         {
             "name": "easyrdf/easyrdf",
@@ -70,16 +70,16 @@
         },
         {
             "name": "gbv/jskos",
-            "version": "0.0.13",
+            "version": "0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gbv/jskos-php.git",
-                "reference": "739a82353d6bd1a23530b38ded8dbe08e1a5ccf9"
+                "reference": "e99f9b5ccab33a36dcabe9bac85c8742f35aa6cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gbv/jskos-php/zipball/739a82353d6bd1a23530b38ded8dbe08e1a5ccf9",
-                "reference": "739a82353d6bd1a23530b38ded8dbe08e1a5ccf9",
+                "url": "https://api.github.com/repos/gbv/jskos-php/zipball/e99f9b5ccab33a36dcabe9bac85c8742f35aa6cb",
+                "reference": "e99f9b5ccab33a36dcabe9bac85c8742f35aa6cb",
                 "shasum": ""
             },
             "require": {
@@ -90,7 +90,7 @@
                 "friendsofphp/php-cs-fixer": "^1.12",
                 "jakub-onderka/php-console-highlighter": "~0.3",
                 "jakub-onderka/php-parallel-lint": "~0.9",
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "~6.1"
             },
             "suggest": {
                 "psr/log": "^1.0"
@@ -110,7 +110,7 @@
             "keywords": [
                 "SKOS"
             ],
-            "time": "2016-10-18T10:50:47+00:00"
+            "time": "2017-04-26T09:25:32+00:00"
         },
         {
             "name": "gbv/jskos-rdf",
@@ -250,16 +250,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "093e416ad096355149e265ea2e4cc1f9ee40ab1a"
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/093e416ad096355149e265ea2e4cc1f9ee40ab1a",
-                "reference": "093e416ad096355149e265ea2e4cc1f9ee40ab1a",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/62b4cdb99d52cb1ff253c465eb1532a80cebb621",
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-07T16:47:02+00:00"
+            "time": "2017-03-20T09:45:15+00:00"
         },
         {
             "name": "willdurand/negotiation",

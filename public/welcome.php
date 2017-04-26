@@ -19,4 +19,3 @@ der Form <code>http://uri.gbv.de/terminology/...</code> vergeben werden.
 <p>
 Ein Normdatedienst zum zentralen Zugriff auf verschiedene Terminologien ist im Aufbau.
 </p>
-

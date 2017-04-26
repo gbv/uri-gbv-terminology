@@ -12,8 +12,8 @@ function row($label, $value) {
 <?php }
 
 function row_list($label, $jskos, $field, $callback) {
-    if (isset($jskos->$field)) {
-        row($label, implode('<br>', array_map($callback, $jskos->$field)));
+    if ($jskos->$field) {
+        row($label, implode('<br>',$jskos->$field->map($callback)));
     }
 }
 

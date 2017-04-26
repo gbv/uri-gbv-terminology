@@ -14,12 +14,12 @@ $relations = [
 ];
 
 foreach ($relations as $field => $label) {
-    if (!isset($JSKOS->$field)) continue;
+    if (!$JSKOS->$field) continue;
 
     if ($field == 'ancestors') {
-        $set = array_reverse($JSKOS->$field);
+        $set = array_reverse(iterator_to_array($JSKOS->$field));
     } else {
-        $set = $JSKOS->$field;
+        $set = iterator_to_array($JSKOS->$field);
         uasort($set, function ($a, $b) {
             return $a->uri <=> $b->uri;
         });

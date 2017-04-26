@@ -9,13 +9,6 @@ use ML\JsonLD\NQuads;
 
 function jskos2rdf($jskos, $format) {
 
-	// TODO: change in JSKOS library to no emit @context in nested objects
-	if (isset($jskos->topConcepts)) {
-		foreach ($jskos->topConcepts as $c) {
-			unset($c->{'@context'});
-		}
-	}
-
     if ($format == 'jsonld') {
         return $jskos->json();
     } elseif ($format == 'rdfjson') {
