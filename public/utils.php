@@ -43,8 +43,8 @@ function uri_link_with_label($item) {
 
     $html = uri_link($item);
 
-    if (isset($item->prefLabel->{$LANGUAGE})) {
-        return $html . " " . htmlspecialchars($item->prefLabel->{$LANGUAGE});
+    if (isset($item->prefLabel[$LANGUAGE])) {
+        return $html . " " . htmlspecialchars($item->prefLabel[$LANGUAGE]);
     } # TODO: other languages?
 
     return $html;
