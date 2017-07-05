@@ -11,6 +11,7 @@ der Form <code>http://uri.gbv.de/terminology/...</code> vergeben werden.
 
 <ul class="narrower">
   <li><a href="bk">Basisklassifikation</a> (BK)</li>
+  <li><a href="aad">Gattungsbegriffe der Arbeitsgemeinschaft Alte Drucke</a> (AAD), in Vorbereitung</li>
   <li><a href="leibniz">Systematik der Leibniz-Bibliographie</a> (z.Z. offline)</li>
   <!--li>Göttinger Online-Klassifikation (GOK)</li-->
 </ul>
