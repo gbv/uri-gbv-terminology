@@ -40,3 +40,8 @@ footer {
   background-size: 35% auto;
   background-position: left bottom;
 }
+
+.glyphicon-none:before {
+  content: "\2122";
+  color: transparent !important;
+}

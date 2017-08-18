@@ -12,7 +12,7 @@ if ($JSKOS->license) {
                 $uri = htmlspecialchars($x->uri);
                 return "<a href='$uri'>$uri</a>";
             }
-    )));
+    )), 'copyright-mark');
 }
 
 // if $jskos->$field ?? []: $field->
@@ -30,10 +30,8 @@ if ($JSKOS->topConcepts) {
     });
     row('Oberste Begriffe', implode('<br>',
         array_map('uri_link_with_label', $top)
-    ));
+    ),'arrow-down');
 }
 
 ?>
 </table>
-<?php
-include 'jskos.php';

@@ -2,7 +2,7 @@
 <p>
   This record in 
   <a href="https://gbv.github.io/jskos/jskos.html">JSKOS format</a>
-  as fetched from
+  was fetched from
   <a href="<?= $APIURL ?>"><?= $APIURL ?></a>
 </p>
-<pre><code><?= htmlspecialchars($JSKOS->json()) ?></code></pre>
+<!--pre><code><?= htmlspecialchars($JSKOS->json()) ?></code></pre-->

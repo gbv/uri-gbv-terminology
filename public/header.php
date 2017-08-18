@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($TITLE ?? '???') ?></title>
-    <link rel="stylesheet" href="<?= $BASE ?? './' ?>bootstrap.min.css">
-    <link rel="stylesheet" href="<?= $BASE ?? './' ?>bootstrap-vzg.css">
+    <link rel="stylesheet" href="<?= $BASE ?? './' ?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $BASE ?? './' ?>css/bootstrap-vzg.css">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">

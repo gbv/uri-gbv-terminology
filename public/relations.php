@@ -5,16 +5,18 @@
 row_list('KOS', $JSKOS, 'inScheme', 'uri_link_with_label');
 
 $relations = [
-    'ancestors' => 'Übergeordnet',
-    'broader' => 'Oberbegriffe',
-    'narrower' => 'Unterbegriffe',
-    'related' => 'Siehe auch',
-    'previous' => 'vorher',
-    'next' => 'nachher',    
+    'ancestors' => ['Übergeordnet','arrow-up'],
+    'broader' => ['Oberbegriffe','arrow-up'],
+    'narrower' => ['Unterbegriffe','arrow-down'],
+    'related' => ['Siehe auch','arrow-left'],
+    'previous' => ['vorher','arrow-left'],
+    'next' => ['nachher','arrow-right'],
 ];
 
-foreach ($relations as $field => $label) {
+foreach ($relations as $field => $rel) {
     if (!$JSKOS->$field) continue;
+
+    list ($label, $icon) = $rel;
 
     if ($field == 'ancestors') {
         $set = array_reverse(iterator_to_array($JSKOS->$field));
@@ -25,5 +27,5 @@ foreach ($relations as $field => $label) {
         });
     }
 
-    row($label, implode('<br>', array_map('uri_link_with_label', $set)));
+    row($label, implode('<br>', array_map('uri_link_with_label', $set)), $icon);
 }

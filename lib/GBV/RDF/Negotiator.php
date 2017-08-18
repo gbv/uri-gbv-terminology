@@ -6,7 +6,7 @@ use EasyRdf_Format;
 
 class Negotiator
 {
-    public $formats = ['html','jsonld','turtle','rdfxml','ntriples','rdfjson','png','svg'];
+    public $formats = ['html','jsonld','turtle','rdfxml','ntriples','rdfjson']; # ,'png','svg'];
 
     public function mimeType(string $name) {
 

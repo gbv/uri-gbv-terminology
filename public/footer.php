@@ -21,7 +21,10 @@
                     echo "'>$format</a>";
                 }
              } ?>
-            <div>
+              <?php if ($APIURL ?? 0) { ?>
+              <a href="<?= htmlspecialchars($APIURL) ?>">dante</a>
+              <?php } ?>
+            </div>
           </div>
         <?php } ?>
       </div>
