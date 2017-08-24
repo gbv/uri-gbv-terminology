@@ -18,13 +18,13 @@ row_list('Identifier', $JSKOS, 'identifier',
 );
 
 $labelTypes = [
-    'altLabel'      => ['Label'],
-    'hiddenLabel'   => ['Suchbegriffe'],
-    'scopeNote'     => ['Hinweis'],
-    'definition'    => ['Definition'],
-    'example'       => ['Beispiel'],
+    'altLabel'      => ['Label', null],
+    'hiddenLabel'   => ['Suchbegriffe', null],
+    'scopeNote'     => ['Hinweis', null],
+    'definition'    => ['Definition', null],
+    'example'       => ['Beispiel', null],
 #    'editorialNote' => 'Berarbeitungshinweis', # TODO
-    'changeNote'    => ['Änderungshinweis']
+    'changeNote'    => ['Änderungshinweis', null]
 ];
 
 foreach ($labelTypes as $type => $rel) {

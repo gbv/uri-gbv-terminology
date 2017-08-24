@@ -6,7 +6,7 @@ use EasyRdf_Format;
 
 class Negotiator
 {
-    public $formats = ['html','jsonld','turtle','rdfxml','ntriples','rdfjson']; # ,'png','svg'];
+    public $formats = ['html','jsonld','turtle','rdfxml','ntriples'];
 
     public function mimeType(string $name) {
 
@@ -49,8 +49,6 @@ class Negotiator
         $type = $format->getValue(); 
         if (in_array($type,['application/ld+json', 'application/json', 'text/json'])) {
             return 'jsonld';
-        } elseif ($type == 'application/rdf+json') {
-            return 'rdfjson';
         }
 
         $format = EasyRdf_Format::getFormat($type);

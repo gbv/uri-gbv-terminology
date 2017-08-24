@@ -16,8 +16,8 @@
               <?php if ($SELF ?? 0) { 
                 foreach ($FORMATS as $format) {
                     echo '&nbsp;';
-                    echo "<a href='$SELF";
-                    if ($format != 'html') echo "?format=$format";
+                    echo "<a href='$BASE?uri=$URI";
+                    if ($format != 'html') echo "&format=$format";
                     echo "'>$format</a>";
                 }
              } ?>

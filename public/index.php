@@ -5,9 +5,14 @@
  * (außer statische Seiten) werden durch dieses Skript geroutet.
  */
 
-use JSKOS\Client;
+use JSKOS\Resource;
+use JSKOS\Concept;
+use JSKOS\ConceptScheme;
+use GBV\DANTE\Client;
 
 require '../vendor/autoload.php';
+
+$CLIENT = new Client();
 
 $LANGUAGE = 'de'; # TODO: Sprache wählen
 
@@ -26,52 +31,17 @@ function label($item, $language) {
     return $item[$language] ?? $item[ll($item, $language)] ?? '???';
 }
 
-function clientRequest($url) {
-    return json_decode(file_get_contents($url), true);
-}
-
-// JSKOS-Daten abrufen (TODO: Caching und Fehlerbehandlung)
-function query($url=null) {
-    global $URI, $ID, $KOS, $TYPE, $APIURL, $JSKOS;
-
-	if ($url) {
-		$APIURL = $url;
-	// TODO: official URI vs. DANTE-URI von Vokabularen 
-	} elseif ($ID=='') {
-    	$APIURL = "http://api.dante.gbv.de/voc/$KOS?properties=*";
-	} else {
-	    $APIURL = 'http://api.dante.gbv.de/data?uri='.urlencode($URI).'&properties=*';
-	}
-    $json = clientRequest($APIURL); 
-
-    if (!count($json)) {
-		return;
-	} 
-
-	$TYPE = in_array('http://www.w3.org/2004/02/skos/core#ConceptScheme',$json[0]['type'])
-		  ? 'ConceptScheme' : 'Concept';
-	$class = "JSKOS\\$TYPE";
-	$JSKOS = new $class($json[0]);
-
-	if ($TYPE == 'ConceptScheme' && $JSKOS->uri && !($JSKOS->topConcept ?? 0)) {
-		$KOS = $JSKOS->notation[0];
-		// TODO: get selected fields only to speed up query
-		$url = "http://api.dante.gbv.de/voc/$KOS/top?properties=notation";
-		$JSKOS->topConcepts = clientRequest($url);
-	}
-    
-	return $JSKOS;
-}
-
 function prepareView() {
-    global $JSKOS, $LANGUAGE, $TYPE, $TITLE, $MAIN, $KOS;
+    global $JSKOS, $LANGUAGE, $TITLE, $MAIN, $KOS, $URI;
 
-    if (isset($JSKOS)) {
-       $TITLE = label($JSKOS->prefLabel, $LANGUAGE);
-        if ($TYPE == 'Concept' and count($JSKOS->notation)) {
+    if ($JSKOS instanceof Resource) {
+        $TITLE = label($JSKOS->prefLabel, $LANGUAGE);
+        if ($JSKOS instanceof Concept and count($JSKOS->notation)) {
             $TITLE = $JSKOS->notation[0] . " $TITLE";
         }
-        $MAIN = strtolower("$TYPE.php");
+        $class = substr(get_class($JSKOS),6);
+        $MAIN = strtolower("$class.php");
+        $URI = $JSKOS->uri;
     } else {
         $TITLE = 'Nicht gefunden';
         $MAIN = '404.php';
@@ -98,21 +68,14 @@ $ID =  implode('/', $parts);
 // Startseite
 if ($PATH == '/') {
     unset($URI);
-    $TITLE = 'Normdaten und Terminologien des GBV';
+    $TITLE = 'Normdaten und Terminologien im GBV';
 
     if (isset($_GET['uri'])) {
         $URI = $_GET['uri'];
-        $JSKOS = query('http://api.dante.gbv.de/data?uri='.urlencode($URI).'&properties=*');
-		if ($JSKOS) {
-            prepareView();
-        } else {
-            $TITLE = 'Nicht gefunden';
-            $MAIN = '404.php';
-        }
+        $JSKOS = $CLIENT->queryURI($URI,['properties'=>'*']);
+        prepareView();
     } else {
-        $APIURL = 'http://api.dante.gbv.de/voc';
-        $client = new Client($APIURL);
-        $KOSLIST = $client->query([]);
+        $KOSLIST = $CLIENT->query([],'voc');
         $MAIN = 'welcome.php';
     }
 }
@@ -127,13 +90,15 @@ elseif ($ID == '' and substr($PATH,-1) != '/') {
     exit;
 } 
 else {
-	$JSKOS = query();
+    if ($ID=='') {
+	    $JSKOS = $CLIENT->queryResource("voc/$KOS", ['properties'=>'*']);
+	} else {
+        $JSKOS = $CLIENT->queryURI($URI,['properties'=>'*']);
+    }
     prepareView();
 }
 
 // serialize as RDF if required
-
-require 'rdf.php';
 
 use GBV\RDF\Negotiator;
 
@@ -143,7 +108,15 @@ $format = $negotiator->negotiate($_GET['format'] ?? '', $accept);
 
 if (isset($JSKOS) && $format != 'html') {
     header("Content-Type: ".$negotiator->mimeType($format));
-    print jskos2rdf($JSKOS, $format); # TODO: base $URI/$KOS
+    
+    if ($format == 'jsonld') {
+        print $JSKOS->json();
+    } else {
+        $parser = new \JSKOS\RDF\Parser();
+        $graph = $parser->parseJSKOS($JSKOS);
+    	print $graph->serialise($format);
+    }
+
     exit;
 }
 

@@ -17,11 +17,10 @@ der Form <code>http://uri.gbv.de/terminology/...</code> vergeben werden.
 
 <h2>Alle verfügbaren Terminologien (unsortiert)</h2>
 <ul class="narrower">
-  <?php foreach($KOSLIST->records as $kos) {
-    if (!is_object($kos)) $kos = new JSKOS\ConceptScheme($kos);
-    $id = $kos->notation[0];
+  <?php foreach($KOSLIST as $kos) {
     echo "<li>";
     echo $kos->prefLabel['de'] ?? $kos->prefLabel['en'];
+    $id = $kos->notation[0];
     echo " (<a href='$id'>$id</a>)</li>";
   } ?>
 </ul>
