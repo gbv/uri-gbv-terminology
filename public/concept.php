@@ -42,3 +42,4 @@ if ($JSKOS->location) { ?>
     map.fitBounds(bounds);
 </script>
 <?php } ?>
+<?php include('meta.php'); ?>

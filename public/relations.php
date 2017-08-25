@@ -2,7 +2,7 @@
 
 # TODO: topConceptOf
 
-row_list('KOS', $JSKOS, 'inScheme', 'uri_link_with_label');
+row_list('KOS', $JSKOS, 'inScheme', 'uri_link_with_label', 'folder-open');
 
 $relations = [
     'ancestors' => ['Übergeordnet','arrow-up'],

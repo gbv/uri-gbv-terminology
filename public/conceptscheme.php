@@ -35,3 +35,4 @@ if ($JSKOS->topConcepts) {
 
 ?>
 </table>
+<?php include('meta.php'); ?>

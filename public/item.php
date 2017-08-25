@@ -5,7 +5,8 @@ include_once 'utils.php';
 row('URI', uri_link($JSKOS, $JSKOS->uri, false), 'link');
 
 row_list('Notation', $JSKOS, 'notation',
-    function ($n) { return '<code>'.htmlspecialchars($n).'</code>'; }
+    function ($n) { return '<code>'.htmlspecialchars($n).'</code>'; },
+    'bookmark'
 );
 
 row_list('Identifier', $JSKOS, 'identifier',
@@ -14,7 +15,7 @@ row_list('Identifier', $JSKOS, 'identifier',
             $id = uri_link((object)['uri'=>$id], $id, false);
         }
         return "<code>$id</code>";
-    }
+    }, 'star'
 );
 
 $labelTypes = [
@@ -52,6 +53,5 @@ foreach ($labelTypes as $type => $rel) {
 
 row('URL', formatted('<a href="%s">%s</a>', $JSKOS->url, $JSKOS->url), 'home');
 
-# TODO: type
+# TODO: type, partOf
 # TODO: subject, subjectOf, depiction
-# TODO: created, issued, modified, creator, contributor, publisher, partOf
