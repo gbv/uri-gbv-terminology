@@ -7,6 +7,9 @@
     <title><?= htmlspecialchars($TITLE ?? '???') ?></title>
     <link rel="stylesheet" href="<?= $BASE ?? './' ?>css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $BASE ?? './' ?>css/bootstrap-vzg.css">
+    <link rel="stylesheet" href="<?= $BASE ?? './' ?>css/leaflet.css">
+    <script src="<?=$BASE."js/leaflet.js"?>"></script>
+    <script src="<?=$BASE."js/jquery.js"?>"></script>
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -14,12 +17,12 @@
         <div class="navbar-header">
           <a class="navbar-brand hidden-xs" href="<?= $BASE ?? './' ?>../">uri.gbv.de</a>
           <a class="navbar-brand" href="<?= $BASE ?? './' ?>">terminology</a>
-          <?php if ($KOS ?? '') { ?>
-          <a class="navbar-brand" href="<?= "$BASE$KOS/" ?>"><?= $KOS ?></a>
-          <?php if ($ID ?? '') { ?>
-          <a class="navbar-brand" href="<?= $SELF ?? '' ?>"><?= $ID ?></a>
-          <?php } } ?>
-        </div>
+          <?php if ($KOS ?? '') { 
+          ?><a class="navbar-brand" href="<?= "$BASE$KOS/" ?>"><?= $KOS ?></a>
+          <?php if ($ID ?? '') { 
+          ?><a class="navbar-brand" href="<?= $SELF ?? '' ?>"><?= $ID ?></a>
+          <?php } } 
+        ?></div>
       </div>
     </nav>
     <div class="container">

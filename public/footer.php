@@ -30,4 +30,4 @@
       </div>
     </footer>
   </body>
-</html><?= $DEBUG ?? '' ?>
+</html>

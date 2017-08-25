@@ -23,7 +23,7 @@ $labelTypes = [
     'scopeNote'     => ['Hinweis', null],
     'definition'    => ['Definition', null],
     'example'       => ['Beispiel', null],
-#    'editorialNote' => 'Berarbeitungshinweis', # TODO
+    'editorialNote' => ['Berarbeitungshinweis', null],
     'changeNote'    => ['Änderungshinweis', null]
 ];
 

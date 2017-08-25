@@ -7,8 +7,12 @@ Das Repository kann direkt von GitHub geklont und aktualisiert werden:
     $ git clone https://github.com/gbv/uri-gbv-terminology.git
     $ cd uri-gbv-terminology
 
-Benötigt wird PHP 7 mit der mbstring extension. Zusätzliche PHP-Bibliotheken
-sind in `composer.json` aufgeführt und werden folgendermaßen installiert:
+Benötigt wird PHP 7 mit den Erweiterungen mbstring und curl:
+
+    $ sudo apt-get install php-curl php-mbstring
+
+Zusätzliche PHP-Bibliotheken sind in `composer.json` aufgeführt und werden
+folgendermaßen installiert:
 
     $ composer install --no-dev
 
