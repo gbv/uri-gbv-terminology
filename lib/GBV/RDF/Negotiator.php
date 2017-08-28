@@ -6,9 +6,9 @@ use EasyRdf_Format;
 
 class Negotiator
 {
-    public $formats = ['html','jsonld','turtle','rdfxml','ntriples'];
+    const FORMATS = ['html','jsonld','turtle','rdfxml','ntriples'];
 
-    public function mimeType(string $name) {
+    public static function mimeType(string $name) {
 
         // JSON-LD and RDF/JSON use different mime types in EasyRdf
         if ($name == 'jsonld') {
@@ -20,12 +20,15 @@ class Negotiator
         return EasyRdf_Format::getFormat($name)->getDefaultMimeType();
     }
 
-    public function negotiate(string $name='', $accept='text/html') {
+    public static function negotiate(string $name='', $accept='text/html') {
 
         // explicit choice of a name
-        if (in_array($name, $this->formats)) {
+        if (in_array($name, self::FORMATS)) {
             return $name;
         }
+
+        // inform caches that a decision was made based on Accept header
+        header('Vary: Accept');
 
         $mimeTypes = [
             'text/html', 'application/xhtml+xml',
@@ -35,9 +38,6 @@ class Negotiator
             'application/n-triples', 'text/plain', 'text/ntriples', 'application/ntriples', 'application/x-ntriples',
             'application/rdf+json',
         ];
-
-        // inform caches that a decision was made based on Accept header
-        header('Vary: Accept');
 
         $negotiator = new \Negotiation\Negotiator();
         $format = $negotiator->getBest($accept, $mimeTypes);
@@ -52,7 +52,7 @@ class Negotiator
         }
 
         $format = EasyRdf_Format::getFormat($type);
-        if ($format and in_array($format->getName(), $this->formats)) {
+        if ($format and in_array($format->getName(), self::FORMATS)) {
             return $format->getName();
         } else {
             return 'html';

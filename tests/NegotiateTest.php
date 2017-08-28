@@ -2,22 +2,25 @@
 
 namespace GBV\RDF;
 
+use GBV\RDF\Negotiator as N;
+
 // don't sent headers
 function header($string) {}
 
+/**
+ * @covers GBV\RDF\Negotiator
+ */
 class NegotiatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testNegotiate()
     {
-        $neg = new Negotiator();
-
         foreach (['', 'html', 'wtf?'] as $name) {
-            $this->assertEquals('html', $neg->negotiate($name));
+            $this->assertEquals('html', N::negotiate($name));
         }
 
-        foreach (['jsonld','turtle','rdfxml','ntriples','rdfjson','svg','png'] as $name) {
-            $this->assertEquals($name, $neg->negotiate($name));
-            $this->assertEquals($name, $neg->negotiate($name, 'text/html'));
+        foreach (['jsonld','turtle','rdfxml','ntriples'] as $name) {
+            $this->assertEquals($name, N::negotiate($name));
+            $this->assertEquals($name, N::negotiate($name, 'text/html'));
         }
 
         $mimeTypes = [
@@ -35,31 +38,27 @@ class NegotiatorTest extends \PHPUnit_Framework_TestCase
             'text/ntriples'             => 'ntriples',
             'application/ntriples'      => 'ntriples',
             'application/x-ntriples'    => 'ntriples',
-            'application/rdf+json'      => 'rdfjson',
+            # 'application/rdf+json'      => 'rdfjson',
         ];
 
         foreach ($mimeTypes as $type => $format) {
-            $this->assertEquals($format, $neg->negotiate('', $type));
+            $this->assertEquals($format, N::negotiate('', $type));
         }
     }
 
     public function testMimeTypes()
     {
-        $neg = new Negotiator();
-
         $mimeTypes = [
             'text/html'                 => 'html',
             'application/json'          => 'jsonld',
             'text/turtle'               => 'turtle',
             'application/rdf+xml'       => 'rdfxml',
             'application/n-triples'     => 'ntriples',
-            'application/rdf+json'      => 'rdfjson',
-            'image/svg+xml'             => 'svg',
-            'image/png'                 => 'png',
+            # 'application/rdf+json'      => 'rdfjson',
         ];
 
         foreach ($mimeTypes as $type => $format) {
-            $this->assertEquals($type, $neg->mimeType($format));
+            $this->assertEquals($type, N::mimeType($format));
         }
     }
 }

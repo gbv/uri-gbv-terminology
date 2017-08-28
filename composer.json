@@ -10,13 +10,13 @@
         }
     ],
     "require": {
-        "easyrdf/easyrdf": "0.9.x",
         "gbv/jskos": "^0.3.3",
-        "gbv/jskos-http": "^0.2.0",
+        "gbv/jskos-http": "^0.2.1",
         "gbv/jskos-rdf": "^0.3.0",
         "php-http/curl-client": "^1.7",
         "willdurand/negotiation": "^2.2",
-        "php-http/guzzle6-adapter": "^1.1"
+        "php-http/guzzle6-adapter": "^1.1",
+        "monolog/monolog": "^1.23"
     },
     "autoload": {
         "psr-4": {

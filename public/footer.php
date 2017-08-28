@@ -1,5 +1,5 @@
     </div>
-     <footer class="footer">
+    <footer class="footer">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
@@ -13,15 +13,14 @@
           <div class="row">
             <div class="col-md-12">
               <a href="<?= htmlspecialchars($URI) ?>"><?= htmlspecialchars($URI) ?></a>
-              <?php if ($SELF ?? 0) { 
+              <?php 
                 foreach ($FORMATS as $format) {
                     echo '&nbsp;';
                     echo "<a href='$BASE?uri=$URI";
                     if ($format != 'html') echo "&format=$format";
                     echo "'>$format</a>";
                 }
-             } ?>
-              <?php if ($APIURL ?? 0) { ?>
+                if ($APIURL ?? 0) { ?><!-- TODO: fixme -->
               <a href="<?= htmlspecialchars($APIURL) ?>">dante</a>
               <?php } ?>
             </div>

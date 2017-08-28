@@ -33,7 +33,9 @@ function startswith($string, $prefix) {
 
 // link to an item's uri
 function uri_link($item, $label=null, $relative = true) {
-    global $BASE, $PREFIX;
+    global $BASE;
+
+    $PREFIX = 'http://uri.gbv.de/terminology';
     $uri = $item->uri;
     if (startswith($uri, $PREFIX)) {
         $href = $BASE . substr($uri, strlen($PREFIX)+1);
