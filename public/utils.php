@@ -1,5 +1,39 @@
 <?php
 
+/**
+ * Return a possibly relative URL from an URI.
+ */
+function uriLink(string $uri, string $base, bool $external = false)
+{
+    $prefix = 'http://uri.gbv.de/terminology';
+
+    if (substr($uri, 0, strlen($prefix)) === $prefix) {
+        return $base . substr($uri, strlen($prefix)+1);
+    } elseif ($external) {
+        return $uri;
+    } else {
+		return "$base?uri=$uri";
+	}
+}
+
+/**
+ * Get a label or fallback.
+ * TODO: move as utility function to JSKOS-PHP
+ */
+function requireLabel($labels, string $lang, string $fallback = '???')
+{
+    if (isset($labels[$lang])) {
+        return [$labels[$lang], $lang];
+    } else {
+        # TODO: better heuristics instead of random language
+        foreach ($labels as $language => $label) {
+            return [$label, $language];
+        }
+    }
+    return [$fallback, 'und'];
+}
+
+
 // emit table row unless value is empty
 function row($label, $value, $icon='none') { 
     if (($value ?? '') == '') return;    
@@ -27,24 +61,16 @@ function formatted($format) {
     return vsprintf($format, $args);
 }
 
-function startswith($string, $prefix) {
-	return substr($string, 0, strlen($prefix)) === $prefix;
-}
-
 // link to an item's uri
 function uri_link($item, $label=null, $relative = true) {
     global $BASE;
 
     $PREFIX = 'http://uri.gbv.de/terminology';
     $uri = $item->uri;
-    if (startswith($uri, $PREFIX)) {
-        $href = $BASE . substr($uri, strlen($PREFIX)+1);
-    } elseif ($relative) {# && !startswith($uri, "https://uri.gbv.de/terminology/")) {
-		$href = $BASE . "?uri=$uri";
-    } else {
-    	$href = $uri;
-	}
-	$label = $label ?? (count($item->notation ?? []) ? $item->notation[0] : $uri);
+    if (!$uri) return;
+
+    $href = uriLink($uri, $BASE, !$relative);
+    $label = $label ?? (count($item->notation ?? []) ? $item->notation[0] : $uri);
     return '<a href="'.htmlspecialchars($href).'">'
            .htmlspecialchars($label).'</a>'; 
 }

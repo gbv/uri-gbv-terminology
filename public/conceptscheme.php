@@ -5,15 +5,7 @@ include_once 'utils.php';
 
 include 'item.php';
 
-if ($JSKOS->license) {
-    row('Lizenz',
-        implode('<br>', $JSKOS->license->map(
-            function ($x) { 
-                $uri = htmlspecialchars($x->uri);
-                return "<a href='$uri'>$uri</a>";
-            }
-    )), 'copyright-mark');
-}
+include 'license.php';
 
 // if $jskos->$field ?? []: $field->
 
@@ -32,6 +24,15 @@ if ($JSKOS->topConcepts) {
         array_map('uri_link_with_label', $top)
     ),'arrow-down');
 }
+
+if (count($JSKOS->subject)) {
+    $subjects = $JSKOS->subject->map(function($s) {
+        return uri_link_with_label($s);
+    });
+    row('Thema', implode('<br>', $subjects));
+}
+
+# TODO: type (thesaurus, classification...)
 
 ?>
 </table>

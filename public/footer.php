@@ -15,10 +15,12 @@
               <a href="<?= htmlspecialchars($URI) ?>"><?= htmlspecialchars($URI) ?></a>
               <?php 
                 foreach ($FORMATS as $format) {
-                    echo '&nbsp;';
-                    echo "<a href='$BASE?uri=$URI";
-                    if ($format != 'html') echo "&format=$format";
-                    echo "'>$format</a>";
+                    $url = uriLink($URI, $BASE);
+                    if ($format != 'html') {
+                        $url = $url . (strpos($url, '?') ? '&' : '?') 
+                             . "format=$format";
+                    }
+                    echo "&nbsp;<a href='$url'>$format</a>";
                 }
                 if ($APIURL ?? 0) { ?><!-- TODO: fixme -->
               <a href="<?= htmlspecialchars($APIURL) ?>">dante</a>

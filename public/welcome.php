@@ -27,6 +27,11 @@ der Form <code>http://uri.gbv.de/terminology/...</code> vergeben werden.
 
 <h2>Weitere Terminologien</h2>
 <ul class="narrower">
+  <li>
+    <a href="bartoc">BARTOC</a> erfasst alle im GBV relevanten Normdateien und Terminologien.
+    Einträge aus BARTOC können nach JSKOS umgesetzt hier abgerufen werden, z.B.
+    <a href="bartoc/15">http://bartoc.org/en/node/15</a>.
+  </li>
   <li><a href="leibniz">Systematik der Leibniz-Bibliographie</a> (z.Z. offline)</li>
   <li><a href="aad">Gattungsbegriffe der Arbeitsgemeinschaft Alte Drucke</a> (AAD), in Vorbereitung</li>
   <li>Göttinger Online-Klassifikation (GOK), in Vorbereitung</li>
