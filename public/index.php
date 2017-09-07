@@ -11,6 +11,11 @@ use Monolog\Handler\TestHandler;
 
 require_once '../vendor/autoload.php';
 
+function redirect($url) {
+    header("Location: $url");
+    exit;
+}
+
 $LANGUAGE = 'de'; # TODO: support language selection
 $TITLE = 'Wissensorganisationssysteme im GBV';
 
@@ -21,8 +26,7 @@ list ($path, $VOCID, $slash, $NOTATION) = $match;
 
 // append trailing slash and force redirect
 if ($VOCID != '' && !$slash) {
-    header("Location: .$path/");
-    exit;
+    redirect(".$path/");
 }
 
 $BASE = ($slash ? '../' : './')
@@ -32,6 +36,13 @@ if ($VOCID == 'about' && $NOTATION == '' ) {
     require 'about.php';
     exit;
 }
+
+// search by location
+if ($VOCID != '' && isset($_GET['local'])) {
+    // TODO: support external URIs such as iconclass
+    redirect("$BASE$VOCID/".$_GET['local']);
+}
+
 
 if ($path == '/' && ($_GET['uri'] ?? null)) {
     $URI = $_GET['uri'];
@@ -57,7 +68,7 @@ $API = 'http://api.dante.gbv.de/';
 
 $logger = new Logger('querylogger');
 $logger->pushHandler($queryLogger);
-$CLIENT = new Client($API, $logger);
+$DANTE = new Client($API, $logger);
 
 if ($VOCID == 'bartoc') { # TODO: add VIAF, Wikidata and more wrapped terminologies
     $URI = "http://bartoc.org/en/node/$NOTATION";
@@ -68,14 +79,24 @@ if ($VOCID == 'bartoc') { # TODO: add VIAF, Wikidata and more wrapped terminolog
     }
     $data = $service->query(['uri'=>$URI]);
     $JSKOS = $data[0] ?? null;        
+    
+    if ($JSKOS) {
+        // TODO: anreichern per DANTE
+    }
+
 } elseif ($URI == "http://uri.gbv.de/terminology/") {
-    $JSKOS = $CLIENT->query([],'voc');
+    $JSKOS = $DANTE->query([],'voc');
 } else {
-    # FIXME: uri=$URI should also work at DANTE API!
     if ($VOCID != '' && $NOTATION == '') {
-	    $JSKOS = $CLIENT->queryResource("voc/$VOCID", ['properties'=>'*']);
+        $JSKOS = $DANTE->queryResource("voc/$VOCID", ['properties'=>'*']);
+        if ($JSKOS && substr($JSKOS->uri,0,30) != 'http://uri.gbv.de/terminology/') {
+            redirect("$BASE?uri=".$JSKOS->uri);
+        }
 	} else {
-        $JSKOS = $CLIENT->queryURI($URI, ['properties'=>'*']);
+        $JSKOS = $DANTE->queryURI($URI, ['properties'=>'*']);
+        if ($JSKOS && $VOCID == '' && $JSKOS->type[0] == 'http://www.w3.org/2004/02/skos/core#ConceptScheme') {
+            $VOCID = $JSKOS->notation[0] ?? '';
+        }
     }
 }
 

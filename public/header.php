@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?= $BASE ?>css/leaflet.css">
     <script src="<?=$BASE."js/leaflet.js"?>"></script>
     <script src="<?=$BASE."js/jquery.js"?>"></script>
+    <script src="<?=$BASE."js/terminology.js"?>"></script>
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -19,10 +20,14 @@
           <a class="navbar-brand" href="<?= $BASE ?>">terminology</a>
           <?php if ($VOCID ?? '') { 
           ?><a class="navbar-brand" href="<?= "$BASE$VOCID/" ?>"><?= $VOCID ?></a>              
-          <?php if ($NOTATION ?? '') { 
-          ?><a class="navbar-brand" href="#"><?= $NOTATION ?></a>
-          <?php } } 
-        ?></div>
+          <?php if ($VOCID != 'about') {
+          ?><form class="navbar-form navbar-right" role="search" id="local" action="<?="$BASE$VOCID/"?>">
+              <div class="form-group">
+              <input type="text" class="form-control" name="local" value="<?=htmlspecialchars($NOTATION);?>" />
+            </div>
+            </form>
+          <?php } } ?>
+        </div>
         <ul class="nav navbar-nav navbar-right">
           <li style="border: none"><a href="<?= $BASE ?>about/">Hilfe</a></li>
         </ul>
