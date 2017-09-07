@@ -1,21 +1,18 @@
 <p>
-An dieser Stellen werden Normdaten und andere Terminologien (engl. <em>Knowledge Organization Systems</em>)
-als Linked Open Data bereitgestellt.
+  An dieser Stellen werden verschiedene
+  Normdateien, Klassifikationen, Thesauri, Wortlisten und andere
+  Wissensorganisationssysteme als Linked Open Data bereitgestellt.
+  <a href="about/">Weitere Informationen...</a>
 </p>
 
-<p>
-Für Terminologien die vom GBV oder dessen Teilnehmern herausgegeben werden, können URIs
-der Form <code>http://uri.gbv.de/terminology/...</code> vergeben werden.
-</p>
-
-<h2>Ausgewählte Terminologien</h2>
+<h2>Ausgewählte Systeme</h2>
 <ul class="narrower">
   <li>Basisklassifikation (<a href="bk">BK</a>)</li>
   <li>Lizenzen (<a href="license">license</a>)</li>
   <li>Hornbostel-Sachs-Systematik (<a href="hornbostelsachs">hornbostelsachs</a>)</li>
 </ul>
 
-<h2>Alle verfügbaren Terminologien (unsortiert)</h2>
+<h2>Alle verfügbaren Systeme (unsortiert)</h2>
 <ul class="narrower">
   <?php foreach($JSKOS as $kos) {
     echo "<li>";
@@ -25,7 +22,7 @@ der Form <code>http://uri.gbv.de/terminology/...</code> vergeben werden.
   } ?>
 </ul>
 
-<h2>Weitere Terminologien</h2>
+<h2>Weitere Systeme</h2>
 <ul class="narrower">
   <li>
     <a href="bartoc">BARTOC</a> erfasst alle im GBV relevanten Normdateien und Terminologien.

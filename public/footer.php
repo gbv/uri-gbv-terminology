@@ -6,7 +6,7 @@
             <a href="https://www.gbv.de/impressum">Verbundzentrale des GBV (VZG)</a>
           </div>        
           <div class="col-md-6">
-            <a href="https://github.com/gbv/uri-gbv-terminology" class="pull-right">sources</a>
+            <a href="https://github.com/gbv/uri-gbv-terminology" class="pull-right">sources/issues</a>
           </div>
         </div>
         <?php if ($URI ?? 0) { ?>

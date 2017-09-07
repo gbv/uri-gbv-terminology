@@ -23,6 +23,9 @@
           ?><a class="navbar-brand" href="#"><?= $NOTATION ?></a>
           <?php } } 
         ?></div>
+        <ul class="nav navbar-nav navbar-right">
+          <li style="border: none"><a href="<?= $BASE ?>about/">Hilfe</a></li>
+        </ul>
       </div>
     </nav>
     <div class="container">

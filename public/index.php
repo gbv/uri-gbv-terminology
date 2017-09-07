@@ -12,7 +12,7 @@ use Monolog\Handler\TestHandler;
 require_once '../vendor/autoload.php';
 
 $LANGUAGE = 'de'; # TODO: support language selection
-$TITLE = 'Normdaten und Terminologien im GBV';
+$TITLE = 'Wissensorganisationssysteme im GBV';
 
 
 // Map request path and query to $URI, $BASE, $VOCID, and $NOTATION
@@ -27,6 +27,11 @@ if ($VOCID != '' && !$slash) {
 
 $BASE = ($slash ? '../' : './')
       . str_repeat('../', count(explode('/', $NOTATION??''))-1);
+
+if ($VOCID == 'about' && $NOTATION == '' ) {
+    require 'about.php';
+    exit;
+}
 
 if ($path == '/' && ($_GET['uri'] ?? null)) {
     $URI = $_GET['uri'];
