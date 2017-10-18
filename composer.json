@@ -11,8 +11,8 @@
     ],
     "require": {
         "gbv/jskos": "^0.3.4",
-        "gbv/jskos-http": "^0.2.1",
-        "gbv/jskos-rdf": "^0.3.0",
+        "gbv/jskos-http": "^0.3.1",
+        "gbv/jskos-rdf": "^0.3.1",
         "gbv/bartoc-jskos": "^0.2.3",
         "php-http/curl-client": "^1.7",
         "willdurand/negotiation": "^2.2",
