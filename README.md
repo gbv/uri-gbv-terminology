@@ -16,7 +16,11 @@ folgendermaßen installiert:
 
     $ composer install --no-dev
 
-Prinzipiell können verschiedene Webserver verwendet werden. Hier die
+Prinzipiell können verschiedene Webserver verwendet werden. Zum kurzen Testen
+eignet sich beispielsweise der PHP-eigene Webserver:
+
+    $ php -S localhost:8090 -t public/
+
 Installation unter Apache2 unter Ubuntu (>= 16.04):
 
     $ sudo apt-get install libapache2-mod-php

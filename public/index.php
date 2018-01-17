@@ -21,7 +21,7 @@ $TITLE = 'Wissensorganisationssysteme im GBV';
 
 
 // Map request path and query to $URI, $BASE, $VOCID, and $NOTATION
-preg_match('!^/([^/]*)(/)?(.*)!', $_SERVER['PATH_INFO'] ?: '/', $match);
+preg_match('!^/([^/]*)(/)?(.*)!', @$_SERVER['PATH_INFO'] ?: '/', $match);
 list ($path, $VOCID, $slash, $NOTATION) = $match;
 
 // append trailing slash and force redirect
