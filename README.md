@@ -2,42 +2,25 @@
 
 ## Installation
 
-Das Repository kann direkt von GitHub geklont und aktualisiert werden:
+Create a user `uri-terminology` and check out the repository
 
-    $ git clone https://github.com/gbv/uri-gbv-terminology.git
-    $ cd uri-gbv-terminology
-
-Benötigt wird PHP 7 mit den Erweiterungen mbstring und curl:
-
-    $ sudo apt-get install php-curl php-mbstring
-
-Zusätzliche PHP-Bibliotheken sind in `composer.json` aufgeführt und werden
-folgendermaßen installiert:
-
+    $ sudo adduser uri-terminology --disabled-password --home /srv/uri-terminology
+    $ sudo -iu uri-terminology
+    $ git clone --bare https://github.com/gbv/uri-gbv-terminology .git
+    $ git init; git checkout
     $ composer install --no-dev
+
+Die Anwendung läuft mittels nginx und PHP-FPM.
+
+    $ sudo apt-get install nginx php-fpm
+    $ sudo cp /srv/uri-terminology/uri-terminology /etc/nginx/sites-enabled/uri-terminology # ggf. anpassen
+    $ sudo service nginx restart
+
+## Development
+
+    $ composer install
 
 Prinzipiell können verschiedene Webserver verwendet werden. Zum kurzen Testen
 eignet sich beispielsweise der PHP-eigene Webserver:
 
     $ php -S localhost:8090 -t public/
-
-Installation unter Apache2 unter Ubuntu (>= 16.04):
-
-    $ sudo apt-get install libapache2-mod-php
-    $ sudo a2enmod rewrite php7.0
-    $ sudo service apache2 restart
-
-Für nginx funktioniert u.A. folgende Konfiguration:
-
-    location /terminology {
-        rewrite ^(/terminology)$ $1/ permanent;
-        if (-f $request_filename) {
-            break;
-        }
-        rewrite ^/terminology/(.+)$ /terminology/index.php/$1;
-    }
-    location ~ \.php(/.*)?$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
-    }
-

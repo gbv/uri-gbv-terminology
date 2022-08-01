@@ -1,0 +1,21 @@
+server {
+    listen 8090;
+    listen [::]:8090;
+
+	server_name uri.gbv.de;
+
+	root /srv/uri-terminology/public;
+  	error_log /var/log/uri-terminology-error.log;
+
+    location /terminology {
+        rewrite ^(/terminology)$ $1/ permanent;
+        if (-f $request_filename) {
+            break;
+        }
+        rewrite ^/terminology/(.+)$ /terminology/index.php/$1;
+    }
+    location ~ \.php(/.*)?$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+    }
+}
