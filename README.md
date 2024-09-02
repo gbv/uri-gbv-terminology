@@ -1,5 +1,7 @@
 # uri.gbv.de/terminology
 
+***THIS APPLICATION HAS BEEN REPLACED BY <https://github.com/gbv/jskos-proxy>***
+
 ## Installation
 
 Create a user `uri-terminology` and check out the repository
